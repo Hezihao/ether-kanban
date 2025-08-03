@@ -1,0 +1,351 @@
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.task-input-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.task-input-container input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  width: 300px;
+}
+
+.task-input-container button {
+  /* 添加新任务按钮样式 */
+  .add-task-button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto; /* 居中显示 */
+    display: block; /* 确保是块级元素 */
+  }
+  
+  .add-task-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* 优化表单间距 */
+  .task-form {
+    background-color: white;
+    padding: 25px; /* 增加内边距 */
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 90vh; /* 限制最大高度 */
+    overflow-y: auto; /* 必要时添加滚动 */
+  }
+  
+  .form-group {
+    margin-bottom: 20px; /* 增加字段间距 */
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px; /* 增加输入框内边距 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px; /* 确保字体大小可读 */
+  }
+  background-color: #45a049;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.task-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.task-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative; /* 确保相对定位，使按钮的绝对定位基于此容器 */
+  padding-right: 30px; /* 为右上角的按钮预留空间 */
+}
+
+.close-button {
+  background: none; /* 确保没有背景色 */
+  border: none; /* 去除边框 */
+  cursor: pointer;
+  color: #666; /* 文字颜色 */
+  font-size: 16px; /* 调整为1个文字大小（根据整体UI调整） */
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute; /* 绝对定位 */
+  top: 10px; /* 距离顶部10px */
+  right: 10px; /* 距离右侧10px */
+  line-height: 1; /* 确保行高为1，避免按钮过大 */
+}
+
+.close-button:hover {
+  color: #333; /* 悬停时颜色变深 */
+  /* 移除背景色设置 */
+  border-radius: 4px; /* 可保留圆角以增强交互体验 */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.task-form button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.task-assignee,
+.task-due-date,
+.task-created-at {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #666;
+}
+
+.task-priority-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.priority-low {
+  background-color: #e8f5e9;
+  color: #43a047;
+}
+
+.priority-medium {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+.priority-high {
+  background-color: #ffebee;
+  color: #e53935;
+}
+
+.priority-urgent {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+}
+
+.task.priority-low {
+  border-left: 4px solid #43a047;
+}
+
+.task.priority-medium {
+  border-left: 4px solid #ff9800;
+}
+
+.task.priority-high {
+  border-left: 4px solid #e53935;
+}
+
+.task.priority-urgent {
+  border-left: 4px solid #b71c1c;
+}
+.task-input-container button:hover {
+  background-color: #45a049;
+}
+
+.kanban-board {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  /* 移除flex-wrap，确保三列始终在一行 */
+  overflow-x: auto; /* 当屏幕过小时允许水平滚动 */
+  padding-bottom: 20px; /* 为滚动条留出空间 */
+}
+
+.column {
+  background-color: #f4f5f7;
+  border-radius: 8px;
+  padding: 15px;
+  /* 使用flex-1和min-width确保等宽 */
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  /* 确保所有列高度相同 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 确保任务列表占满剩余空间，使列高度一致 */
+.task-list {
+  min-height: 400px; /* 设置最小高度 */
+  margin-top: 15px;
+  flex-grow: 1;
+}
+
+.column h2 {
+  font-size: 18px;
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+.task-list {
+  min-height: 200px;
+  margin-top: 15px;
+}
+
+.task {
+  background-color: white;
+  margin-bottom: 15px; /* 增加任务间距 */
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  position: relative;
+  padding: 15px 36px 15px 16px;
+  min-height: 180px; /* 调整最小高度 */
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列 */
+}
+
+.task-content {
+  word-break: break-word;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.4;
+  flex-grow: 1; /* 让任务内容占据剩余空间 */
+}
+
+.task-assignee,
+.task-due-date,
+.task-created-at {
+  font-size: 12px;
+  margin-top: 6px;  /* 增加间距 */
+  color: #555;  /* 稍微加深颜色 */
+  display: block;  /* 确保每个属性单独成行 */
+  line-height: 1.5;  /* 增加行高 */
+}
+
+.task-priority-badge {
+  display: inline-block;
+  padding: 3px 10px;  /* 增加徽章 padding */
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 6px;  /* 增加间距 */
+}
+
+.delete-button {
+  position: absolute;
+  top: 8px;  /* 稍微调整位置使其居中 */
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+  padding: 0;
+}
+
+.delete-button:hover {
+  background-color: #f5f5f5;
+  color: #ff4d4f;
+}
+
+.column.dragging-over {
+  background-color: #e9ebee;
+  border: 2px dashed #ccc;
+}
+
+@media (max-width: 768px) {
+  .kanban-board {
+    flex-direction: column;
+    align-items: center;
+  }
+  .column {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+
+/* 添加看板容器样式 */
+.board-container {
+  margin-top: 30px;
+  padding: 0 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
