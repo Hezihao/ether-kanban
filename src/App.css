@@ -26,53 +26,53 @@ h1 {
 }
 
 .task-input-container button {
-  /* 添加新任务按钮样式 */
-  .add-task-button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 20px auto; /* 居中显示 */
-    display: block; /* 确保是块级元素 */
-  }
-  
-  .add-task-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* 优化表单间距 */
-  .task-form {
-    background-color: white;
-    padding: 25px; /* 增加内边距 */
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-height: 90vh; /* 限制最大高度 */
-    overflow-y: auto; /* 必要时添加滚动 */
-  }
-  
-  .form-group {
-    margin-bottom: 20px; /* 增加字段间距 */
-  }
-  
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 10px; /* 增加输入框内边距 */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px; /* 确保字体大小可读 */
-  }
   background-color: #45a049;
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   font-size: 16px;
   margin-bottom: 20px;
+}
+
+/* 提取出的独立选择器 */
+.add-task-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px auto; /* 居中显示 */
+  display: block; /* 确保是块级元素 */
+}
+
+.add-task-button:hover {
+  background-color: #45a049;
+}
+
+.task-form {
+  background-color: white;
+  padding: 25px; /* 增加内边距 */
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-height: 90vh; /* 限制最大高度 */
+  overflow-y: auto; /* 必要时添加滚动 */
+}
+  
+.form-group {
+  margin-bottom: 20px; /* 增加字段间距 */
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px; /* 增加输入框内边距 */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px; /* 确保字体大小可读 */
 }
 
 .task-form-container {
@@ -108,25 +108,33 @@ h1 {
 }
 
 .close-button {
-  background: none; /* 确保没有背景色 */
-  border: none; /* 去除边框 */
+  background: none !important;
+  border: none !important;
   cursor: pointer;
-  color: #666; /* 文字颜色 */
-  font-size: 16px; /* 调整为1个文字大小（根据整体UI调整） */
-  padding: 5px;
+  color: #888 !important; /* 正常状态下为醒目的灰色 */
+  font-size: 14px; /* 减小字体大小 */
+  padding: 3px !important; /* 减小内边距 */
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute; /* 绝对定位 */
-  top: 10px; /* 距离顶部10px */
-  right: 10px; /* 距离右侧10px */
-  line-height: 1; /* 确保行高为1，避免按钮过大 */
+  position: absolute;
+  top: 5px; /* 调整到更靠上的位置 */
+  right: 5px; /* 调整到更靠右的位置 */
+  line-height: 1;
+  width: 18px !important; /* 与SVG图标宽度一致 */
+  height: 18px !important; /* 与SVG图标高度一致 */
+  box-sizing: content-box; /* 确保padding不会增加按钮总尺寸 */
 }
 
 .close-button:hover {
-  color: #333; /* 悬停时颜色变深 */
-  /* 移除背景色设置 */
+  color: #ff4d4f !important; /* 悬停时变为红色 */
   border-radius: 4px; /* 可保留圆角以增强交互体验 */
+}
+
+/* 添加更具体的选择器，确保SVG图标继承颜色 */
+.close-button svg {
+  stroke: currentColor !important;
+  fill: none !important;
 }
 
 .form-group {
