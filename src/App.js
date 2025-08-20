@@ -33,6 +33,98 @@ function App() {
     }
   });
 
+  // 添加按责任人筛选的状态 - 支持多选
+  const [filterByAssignee, setFilterByAssignee] = useState({
+    'column-1': { 'all': true },
+    'column-2': { 'all': true },
+    'column-3': { 'all': true }
+  });
+
+  // 控制筛选弹出窗口显示状态
+  const [filterPopupOpen, setFilterPopupOpen] = useState({
+    'column-1': false,
+    'column-2': false,
+    'column-3': false
+  });
+
+  // 切换筛选弹出窗口
+  const toggleFilter = (columnId) => {
+    setFilterPopupOpen(prev => ({
+      ...prev,
+      [columnId]: !prev[columnId]
+    }));
+  };
+
+  // 获取特定列中的所有责任人
+  const getAssigneesInColumn = (columnId) => {
+    const column = columns[columnId];
+    if (!column || !column.tasks) return ['all'];
+    
+    const assignees = new Set(['all']); // 始终包含"全部"选项
+    column.tasks.forEach(task => {
+      if (task.assignee) {
+        assignees.add(task.assignee);
+      }
+    });
+    
+    return Array.from(assignees);
+  };
+
+  // 处理筛选变更
+  const handleFilterChange = (columnId, assignee) => {
+    setFilterByAssignee(prev => {
+      const currentFilters = { ...prev[columnId] };
+      
+      if (assignee === 'all') {
+        // 如果选择"全部"，则只保留"全部"
+        return {
+          ...prev,
+          [columnId]: { 'all': true }
+        };
+      } else {
+        // 切换当前责任人的选中状态
+        currentFilters[assignee] = !currentFilters[assignee];
+        
+        // 如果所有选项都未选中，则自动选中"全部"
+        const hasSelected = Object.keys(currentFilters)
+          .some(key => key !== 'all' && currentFilters[key]);
+        if (!hasSelected) {
+          return {
+            ...prev,
+            [columnId]: { 'all': true }
+          };
+        }
+        
+        // 如果选择了其他选项，则取消选中"全部"
+        return {
+          ...prev,
+          [columnId]: {
+            ...currentFilters,
+            'all': false
+          }
+        };
+      }
+    });
+  };
+
+  // 点击外部区域关闭弹出窗口
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.filter-container')) {
+        setFilterPopupOpen({
+          'column-1': false,
+          'column-2': false,
+          'column-3': false
+        });
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const [newTaskContent, setNewTaskContent] = useState('');
   const [newTaskAssignee, setNewTaskAssignee] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
@@ -164,6 +256,21 @@ function App() {
     socket.emit('delete-task', { taskId, columnId });
   };
 
+  // 获取指定列中所有唯一的责任人
+  const getUniqueAssignees = (columnId) => {
+    const tasks = columns[columnId]?.tasks || [];
+    const assignees = ['all', ...new Set(tasks.map(task => task.assignee || '未分配'))];
+    return assignees;
+  };
+
+  // 这个函数已被重命名或移除，保留注释以避免混淆
+  // const handleFilterChange = (columnId, assignee) => {
+  //   setFilterByAssignee(prev => ({
+  //     ...prev,
+  //     [columnId]: assignee
+  //   }));
+  // };
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       addNewTask();
@@ -251,9 +358,71 @@ function App() {
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-                    <h2>{column.title}</h2>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <h2>{column.title}</h2>
+                      <div className="filter-container" style={{ position: 'relative' }}>
+                        <button
+                          onClick={() => toggleFilter(column.id)}
+                          title="筛选"
+                          style={{
+                            backgroundColor: 'transparent',
+                            color: 'var(--text-primary)',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '1em', // 1个文字大小
+                            width: 'auto',
+                            height: 'auto',
+                            padding: '0 5px'
+                          }}
+                        >
+                          🔍
+                        </button>
+                        {filterPopupOpen[column.id] && (
+                          <div className="filter-popup"
+                            style={{
+                              position: 'absolute',
+                              top: '100%',
+                              right: '0',
+                              backgroundColor: 'var(--secondary-bg)',
+                              border: '1px solid var(--border-color)',
+                              borderRadius: '4px',
+                              padding: '10px',
+                              boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                              zIndex: '100',
+                              minWidth: '150px',
+                              color: 'var(--text-primary)'
+                            }}
+                          >
+                            <h4 style={{ marginTop: '0', marginBottom: '10px', fontSize: '14px' }}>选择责任人</h4>
+                            {getAssigneesInColumn(column.id).map(assignee => (
+                              <div key={assignee} style={{ marginBottom: '5px' }}>
+                                <label style={{ display: 'flex', alignItems: 'center', fontSize: '14px' }}>
+                                  <input
+                                    type="checkbox"
+                                    checked={!!filterByAssignee[column.id][assignee]}
+                                    onChange={() => handleFilterChange(column.id, assignee)}
+                                    style={{ marginRight: '8px' }}
+                                  />
+                                  {assignee === 'all' ? '全部' : assignee || '未分配'}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <div className="task-list">
-                      {column.tasks.map((task, index) => (
+                      {column.tasks
+                        .filter(task => {
+                          const filters = filterByAssignee[column.id];
+                          // 如果选中了'全部'，则显示所有任务
+                          if (filters['all']) return true;
+                          
+                          // 否则，检查任务的责任人是否在选中的筛选器中
+                          const taskAssignee = task.assignee || '未分配';
+                          return !!filters[taskAssignee];
+                        })
+                        .map((task, index) => (
                         <Draggable key={task.id} draggableId={task.id} index={index}>
                           {(provided) => (
                             <div

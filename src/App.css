@@ -108,6 +108,16 @@ h1 {
   position: relative;
 }
 
+/* 筛选选项样式 */
+.filter-option {
+  transition: background-color 0.2s ease;
+}
+
+.filter-option:hover {
+  background-color: var(--primary-hover);
+  color: var(--text-primary);
+}
+
 .form-header {
   display: flex;
   justify-content: space-between;
