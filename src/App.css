@@ -3,12 +3,15 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(25, 118, 210, 0.3);
 }
 
 .task-input-container {
@@ -20,24 +23,28 @@ h1 {
 .task-input-container input {
   padding: 10px 15px;
   font-size: 16px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px 0 0 4px;
   width: 300px;
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
 }
 
 .task-input-container button {
-  background-color: #45a049;
+  background-color: var(--light-blue);
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   font-size: 16px;
   margin-bottom: 20px;
+  color: white;
+  padding: 10px 20px;
 }
 
 /* 提取出的独立选择器 */
 .add-task-button {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: var(--accent-blue);
   color: white;
   border: none;
   border-radius: 4px;
@@ -45,18 +52,19 @@ h1 {
   font-size: 16px;
   margin: 20px auto; /* 居中显示 */
   display: block; /* 确保是块级元素 */
+  box-shadow: 0 0 10px rgba(25, 118, 210, 0.5);
 }
 
 .add-task-button:hover {
-  background-color: #45a049;
+  background-color: var(--light-blue);
 }
 
 .task-form {
-  background-color: white;
+  background-color: var(--secondary-bg);
   padding: 25px; /* 增加内边距 */
   border-radius: 8px;
   width: 400px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   max-height: 90vh; /* 限制最大高度 */
   overflow-y: auto; /* 必要时添加滚动 */
 }
@@ -69,10 +77,12 @@ h1 {
 .form-group select {
   width: 100%;
   padding: 10px; /* 增加输入框内边距 */
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 14px; /* 确保字体大小可读 */
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
 }
 
 .task-form-container {
@@ -89,10 +99,10 @@ h1 {
 }
 
 .task-form {
-  background-color: white;
+  background-color: var(--secondary-bg);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 100%;
   max-width: 400px;
   position: relative;
@@ -111,7 +121,7 @@ h1 {
   background: none !important;
   border: none !important;
   cursor: pointer;
-  color: #888 !important; /* 正常状态下为醒目的灰色 */
+  color: var(--text-secondary) !important; /* 正常状态下为醒目的灰色 */
   font-size: 14px; /* 减小字体大小 */
   padding: 3px !important; /* 减小内边距 */
   display: flex;
@@ -124,11 +134,10 @@ h1 {
   width: 18px !important; /* 与SVG图标宽度一致 */
   height: 18px !important; /* 与SVG图标高度一致 */
   box-sizing: content-box; /* 确保padding不会增加按钮总尺寸 */
-}
-
 .close-button:hover {
-  color: #ff4d4f !important; /* 悬停时变为红色 */
-  border-radius: 4px; /* 可保留圆角以增强交互体验 */
+  color: #ff6b6b !important; /* 悬停时变为红色 */
+  border-radius: 4px;
+}/* 可保留圆角以增强交互体验 */
 }
 
 /* 添加更具体的选择器，确保SVG图标继承颜色 */
@@ -151,19 +160,22 @@ h1 {
 .form-group select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
 }
 
 .task-form button {
   padding: 10px 15px;
-  background-color: #4caf50;
+  background-color: var(--light-blue);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
+  box-shadow: 0 0 10px rgba(25, 118, 210, 0.3);
 }
 
 .task-assignee,
@@ -171,7 +183,7 @@ h1 {
 .task-created-at {
   font-size: 12px;
   margin-top: 4px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .task-priority-badge {
@@ -184,23 +196,23 @@ h1 {
 }
 
 .priority-low {
-  background-color: #e8f5e9;
-  color: #43a047;
+  background-color: rgba(67, 160, 71, 0.2);
+  color: #81c784;
 }
 
 .priority-medium {
-  background-color: #fff3e0;
-  color: #ff9800;
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #ffb74d;
 }
 
 .priority-high {
-  background-color: #ffebee;
-  color: #e53935;
+  background-color: rgba(229, 57, 53, 0.2);
+  color: #ef5350;
 }
 
 .priority-urgent {
-  background-color: #ffcdd2;
-  color: #b71c1c;
+  background-color: rgba(183, 28, 28, 0.2);
+  color: #ef5350;
 }
 
 .task.priority-low {
@@ -232,17 +244,18 @@ h1 {
 }
 
 .column {
-  background-color: #f4f5f7;
+  background-color: var(--secondary-bg);
   border-radius: 8px;
   padding: 15px;
   /* 使用flex-1和min-width确保等宽 */
   flex: 1;
   min-width: 280px;
   max-width: 350px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.3);
   /* 确保所有列高度相同 */
   display: flex;
   flex-direction: column;
+  border: 1px solid #2d2d2d;
 }
 
 /* 确保任务列表占满剩余空间，使列高度一致 */
@@ -256,8 +269,8 @@ h1 {
   font-size: 18px;
   margin-top: 0;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  color: #333;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .task-list {
@@ -266,10 +279,10 @@ h1 {
 }
 
 .task {
-  background-color: white;
+  background-color: #1a1a1a;
   margin-bottom: 15px; /* 增加任务间距 */
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.5);
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
@@ -279,6 +292,13 @@ h1 {
   min-height: 180px; /* 调整最小高度 */
   display: flex; /* 使用flex布局 */
   flex-direction: column; /* 垂直排列 */
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.task:hover {
+  box-shadow: 0 0 15px rgba(25, 118, 210, 0.3);
+  transform: translateY(-2px);
 }
 
 .task-content {
@@ -286,7 +306,7 @@ h1 {
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 16px;
-  color: #333;
+  color: var(--text-primary);
   line-height: 1.4;
   flex-grow: 1; /* 让任务内容占据剩余空间 */
 }
@@ -296,7 +316,7 @@ h1 {
 .task-created-at {
   font-size: 12px;
   margin-top: 6px;  /* 增加间距 */
-  color: #555;  /* 稍微加深颜色 */
+  color: var(--text-secondary);  /* 稍微加深颜色 */
   display: block;  /* 确保每个属性单独成行 */
   line-height: 1.5;  /* 增加行高 */
 }
@@ -317,7 +337,7 @@ h1 {
   background: none;
   border: none;
   cursor: pointer;
-  color: #888;
+  color: var(--text-secondary);
   width: 24px;
   height: 24px;
   display: flex;
@@ -329,13 +349,13 @@ h1 {
 }
 
 .delete-button:hover {
-  background-color: #f5f5f5;
-  color: #ff4d4f;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff6b6b;
 }
 
 .column.dragging-over {
-  background-color: #e9ebee;
-  border: 2px dashed #ccc;
+  background-color: rgba(25, 118, 210, 0.1);
+  border: 2px dashed var(--light-blue);
 }
 
 @media (max-width: 768px) {
